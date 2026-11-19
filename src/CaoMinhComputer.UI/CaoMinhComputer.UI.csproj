@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>CaoMinhComputer.UI</RootNamespace>
+    <AssemblyName>ConNgoan</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+    <Title>Con Ngoan</Title>
+    <Description>Phần mềm quản lý máy tính Windows dành cho phụ huynh</Description>
+    <TieredPGO>true</TieredPGO>
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Include="System.IO" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\app.ico" />
+    <None Remove="Assets\logo-512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.ServiceProcess.ServiceController" Version="10.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CaoMinhComputer.Core\CaoMinhComputer.Core.csproj" />
+    <ProjectReference Include="..\CaoMinhComputer.Data\CaoMinhComputer.Data.csproj" />
+  </ItemGroup>
+</Project>

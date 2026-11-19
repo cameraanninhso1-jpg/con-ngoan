@@ -1,0 +1,53 @@
+<UserControl x:Class="CaoMinhComputer.UI.Controls.StatusBanner"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- DataContext: StatusMessage -->
+    <Border x:Name="Root" CornerRadius="12" Padding="18,12" Margin="0,0,0,16"
+            Visibility="{Binding HasText, Converter={StaticResource BoolToVis}}">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource SuccessSoftBrush}" />
+                <Setter Property="BorderBrush" Value="#BFE8D0" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsError}" Value="True">
+                        <Setter Property="Background" Value="{StaticResource DangerSoftBrush}" />
+                        <Setter Property="BorderBrush" Value="#F2C4C4" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock FontFamily="{StaticResource IconFont}" FontSize="18" Margin="0,1,12,0" VerticalAlignment="Top">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Text" Value="&#xE930;" />
+                        <Setter Property="Foreground" Value="{StaticResource SuccessBrush}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsError}" Value="True">
+                                <Setter Property="Text" Value="&#xE783;" />
+                                <Setter Property="Foreground" Value="{StaticResource DangerBrush}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <TextBlock Grid.Column="1" Text="{Binding Text}" TextWrapping="Wrap" FontSize="14" LineHeight="21">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="#11683C" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsError}" Value="True">
+                                <Setter Property="Foreground" Value="#A12E2E" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+    </Border>
+</UserControl>

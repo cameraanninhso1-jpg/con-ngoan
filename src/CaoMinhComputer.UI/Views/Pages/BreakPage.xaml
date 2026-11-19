@@ -1,0 +1,88 @@
+<UserControl x:Class="CaoMinhComputer.UI.Views.Pages.BreakPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:CaoMinhComputer.UI.Controls">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="36,30,36,30">
+            <Grid Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Text="Giờ giải lao" Style="{StaticResource PageTitle}" />
+                    <TextBlock Text="Tối đa 5 khung giờ mỗi ngày được dùng mạng xã hội &amp; game để giải lao." Style="{StaticResource PageSubtitle}" />
+                </StackPanel>
+                <Border x:Name="DirtyPill" Grid.Column="1" Style="{StaticResource Pill}" VerticalAlignment="Top" Margin="16,4,0,0" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="8" Height="8" Fill="{StaticResource AccentPressedBrush}" Margin="0,0,8,0" />
+                        <TextBlock Text="Chưa lưu thay đổi" Foreground="{StaticResource WarningBrush}" FontWeight="SemiBold" FontSize="13" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Trạng thái hiện tại -->
+            <Border x:Name="StateCard" CornerRadius="14" Padding="22,16" Margin="0,0,0,16" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Ellipse x:Name="StateDot" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,16,0" />
+                    <StackPanel Grid.Column="1">
+                        <TextBlock x:Name="StateTitle" FontSize="17" FontWeight="Bold" />
+                        <TextBlock x:Name="ClockText" Style="{StaticResource Muted}" Margin="0,2,0,0" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <c:StatusBanner x:Name="Banner" />
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <Grid Margin="0,0,0,14">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="Khung giờ được phép giải lao (lặp lại mỗi ngày)" Style="{StaticResource CardTitle}" FontSize="17" />
+                            <TextBlock Text="Nhập giờ dạng 11:30 hoặc 11h30 · để trống = không dùng khung đó" Style="{StaticResource Muted}" />
+                        </StackPanel>
+                        <Button Grid.Column="1" Content="Lưu khung giờ" Style="{StaticResource PrimaryButton}" MinWidth="190" Height="48" FontSize="16"
+                                Click="OnSave" VerticalAlignment="Top" />
+                    </Grid>
+                    <ItemsControl x:Name="BreakList">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0,6">
+                                    <Border Background="{StaticResource NavyBrush}" CornerRadius="16" Padding="16,7" Width="120" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Label}" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" />
+                                    </Border>
+                                    <TextBox Style="{StaticResource Input}" Width="140" Margin="18,0,0,0" Text="{Binding From, UpdateSourceTrigger=PropertyChanged}" Tag="vd 11:30" />
+                                    <TextBlock Text="đến" Style="{StaticResource Muted}" Margin="14,0" VerticalAlignment="Center" />
+                                    <TextBox Style="{StaticResource Input}" Width="140" Text="{Binding To, UpdateSourceTrigger=PropertyChanged}" Tag="vd 12:59" />
+                                    <TextBlock Text="{Binding StateText}" Style="{StaticResource Muted}" Margin="18,0,0,0" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <CheckBox x:Name="CloseBrowsersCheck" Style="{StaticResource CheckSquare}" Checked="OnChanged" Unchecked="OnChanged">
+                    <StackPanel>
+                        <TextBlock Text="Tự đóng trình duyệt khi hết giờ giải lao" FontWeight="SemiBold" FontSize="16" Foreground="{StaticResource TextBrush}" />
+                        <TextBlock Style="{StaticResource Muted}" Text="Báo trước 5 phút và 1 phút để con lưu bài. Giúp chặn ngay các trang đang mở dở (Chrome, Edge, Cốc Cốc, Firefox, Opera, Brave)." />
+                    </StackPanel>
+                </CheckBox>
+            </Border>
+
+            <Border Style="{StaticResource DarkInfoCard}">
+                <TextBlock Foreground="White" TextWrapping="Wrap" LineHeight="22" FontSize="14"
+                           Text="Trong giờ giải lao: mở được mạng xã hội, website &amp; game đã cài sẵn (theo danh sách ở mục Chặn web &amp; game). Khóa cài đặt phần mềm VẪN hoạt động. Ngoài khung giờ: mọi thứ tự chặn lại theo cài đặt. Giờ giải lao không cộng thêm thời gian dùng máy – giới hạn phút mỗi ngày vẫn áp dụng." />
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,97 @@
+<UserControl x:Class="CaoMinhComputer.UI.Views.ShellView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="280" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- ===== Sidebar ===== -->
+        <Grid Background="{StaticResource NavyBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Margin="24,26,24,0">
+                <StackPanel Orientation="Horizontal">
+                    <Border Background="White" CornerRadius="14" Width="60" Height="60" Padding="5">
+                        <Image Source="{StaticResource LogoMark}" />
+                    </Border>
+                    <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
+                        <TextBlock Text="Con" FontSize="25" FontWeight="Bold" Foreground="White" />
+                        <TextBlock Text="Ngoan" FontSize="25" FontWeight="Bold" Foreground="{StaticResource AccentBrush}" Margin="0,-8,0,0" />
+                        <TextBlock Text="by Cao Minh Computer" FontSize="11" Foreground="#AFC0EA" Margin="2,0,0,0" ToolTip="Phát triển bởi Cao Minh Computer" />
+                    </StackPanel>
+                </StackPanel>
+                <Border Height="1" Background="#2A3B72" Margin="0,22,0,14" />
+            </StackPanel>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="12,0">
+                <StackPanel Margin="12,0,0,0">
+                    <RadioButton x:Name="NavWeb" Style="{StaticResource NavItem}" Tag="&#xE774;" Content="Chặn web &amp; game" Checked="OnNav" />
+                    <RadioButton x:Name="NavInstall" Style="{StaticResource NavItem}" Tag="&#xE72E;" Content="Khóa cài đặt" Checked="OnNav" />
+                    <RadioButton x:Name="NavBreak" Style="{StaticResource NavItem}" Tag="&#xE823;" Content="Giờ giải lao" Checked="OnNav" />
+                    <RadioButton x:Name="NavTime" Style="{StaticResource NavItem}" Tag="&#xE787;" Content="Thời gian sử dụng" Checked="OnNav" />
+                    <RadioButton x:Name="NavAdmin" Style="{StaticResource NavItem}" Tag="&#xE77B;" Content="Tài khoản quản trị" Checked="OnNav" />
+                    <RadioButton x:Name="NavSecurity" Style="{StaticResource NavItem}" Tag="&#xEA18;" Content="Bảo mật &amp; gỡ app" Checked="OnNav" />
+                    <RadioButton x:Name="NavLogs" Style="{StaticResource NavItem}" Tag="&#xE8FD;" Content="Nhật ký hoạt động" Checked="OnNav" />
+                    <RadioButton x:Name="NavAbout" Style="{StaticResource NavItem}" Tag="&#xE946;" Content="Giới thiệu" Checked="OnNav" />
+                </StackPanel>
+            </ScrollViewer>
+
+            <StackPanel Grid.Row="2" Margin="24,12,24,20">
+                <Border Background="{StaticResource NavyLightBrush}" CornerRadius="14" Padding="16,14" Cursor="Hand"
+                        MouseLeftButtonUp="OnStatusClick" ToolTip="Mở Bảo mật &amp; gỡ app">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Ellipse x:Name="StatusDot" Width="12" Height="12" Fill="#2FD27A" VerticalAlignment="Top" Margin="0,6,12,0" />
+                        <StackPanel Grid.Column="1">
+                            <TextBlock x:Name="StatusTitle" Text="Đang bảo vệ" Foreground="White" FontWeight="Bold" FontSize="15" />
+                            <TextBlock x:Name="StatusDetail" Text="" Foreground="{StaticResource SidebarMutedBrush}" FontSize="12"
+                                       TextWrapping="Wrap" Margin="0,2,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Grid Margin="0,16,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Width="38" Height="38" CornerRadius="19" Background="{StaticResource AccentBrush}">
+                        <TextBlock x:Name="AvatarText" FontWeight="Bold" FontSize="16" Foreground="{StaticResource NavyBrush}"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                        <TextBlock x:Name="AdminName" Foreground="White" FontWeight="Bold" FontSize="15" TextTrimming="CharacterEllipsis" />
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Đăng xuất" Style="{StaticResource LinkButton}" Foreground="{StaticResource SidebarTextBrush}"
+                                    HorizontalAlignment="Left" Click="OnLogout" />
+                            <TextBlock Text="  ·  " Foreground="{StaticResource SidebarMutedBrush}" VerticalAlignment="Center" />
+                            <Button Content="Đổi người dùng" Style="{StaticResource LinkButton}" Foreground="{StaticResource SidebarTextBrush}"
+                                    HorizontalAlignment="Left" Click="OnSwitchUser" ToolTip="Về màn hình đăng nhập Windows để chọn tài khoản của con" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <StackPanel Margin="0,14,0,0">
+                    <TextBlock x:Name="HotlineText" Foreground="{StaticResource SidebarMutedBrush}" FontSize="13" />
+                    <Button x:Name="WebsiteLink" Style="{StaticResource LinkButton}" Foreground="{StaticResource AccentBrush}" FontWeight="Normal"
+                            HorizontalAlignment="Left" Margin="0,2,0,0" Click="OnWebsite" ToolTip="Mở website Cao Minh Computer" />
+                    <TextBlock x:Name="VersionText" Margin="0,4,0,0" Foreground="#5D6C98" FontSize="12" TextWrapping="Wrap" />
+                    <Button x:Name="UpdateLink" Style="{StaticResource LinkButton}" Foreground="{StaticResource AccentBrush}" FontSize="12"
+                            HorizontalAlignment="Left" Margin="0,2,0,0" Click="OnUpdateLink" Visibility="Collapsed" ToolTip="Xem và cài bản cập nhật" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <!-- ===== Nội dung ===== -->
+        <Border Grid.Column="1" Background="{StaticResource PageBackgroundBrush}">
+            <ContentControl x:Name="PageHost" Focusable="False" />
+        </Border>
+    </Grid>
+</UserControl>

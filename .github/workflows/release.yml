@@ -1,0 +1,138 @@
+# Build, test, (ký số qua SignPath) và phát hành Con Ngoan.
+# - Mỗi lần push/PR: build + unit test + tạo bộ cài (chưa ký) để kiểm tra.
+# - Push tag v*: như trên + ký số (khi đã cấu hình SignPath) + tạo GitHub Release kèm bộ cài.
+#
+# Cấu hình SignPath (sau khi SignPath Foundation duyệt dự án):
+#   Settings › Secrets and variables › Actions
+#     Secret   SIGNPATH_API_TOKEN
+#     Variable SIGNPATH_ORGANIZATION_ID
+#     Variable SIGNPATH_PROJECT_SLUG          (ví dụ: con-ngoan)
+#     Variable SIGNPATH_POLICY_SLUG           (ví dụ: release-signing)
+#   Trên SignPath tạo 2 artifact configuration: "app-files" (zip các exe/dll) và "installer" (exe bộ cài).
+name: build-release
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      DOTNET_NOLOGO: '1'
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      SIGN: ${{ startsWith(github.ref, 'refs/tags/v') && vars.SIGNPATH_ORGANIZATION_ID != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Phiên bản
+        id: ver
+        shell: pwsh
+        run: |
+          $v = ([xml](Get-Content Directory.Build.props)).Project.PropertyGroup.Version | Where-Object { $_ } | Select-Object -First 1
+          if ('${{ github.ref }}' -like 'refs/tags/v*' -and 'v' + $v -ne '${{ github.ref_name }}') {
+            throw "Tag ${{ github.ref_name }} không khớp Version $v trong Directory.Build.props"
+          }
+          "version=$v" >> $env:GITHUB_OUTPUT
+
+      - name: Unit test
+        run: dotnet test tests/CaoMinhComputer.Core.Tests/CaoMinhComputer.Core.Tests.csproj -c Release
+
+      - name: Publish (self-contained)
+        shell: pwsh
+        run: ./scripts/publish.ps1 -Version ${{ steps.ver.outputs.version }} -SkipInstaller
+
+      # ---------- Ký các file chương trình (exe/dll của Con Ngoan) ----------
+      - name: Gom file cần ký
+        if: env.SIGN == 'true'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts/to-sign | Out-Null
+          Get-ChildItem artifacts/publish -File | Where-Object { $_.Name -like 'ConNgoan*.exe' -or $_.Name -like 'ConNgoan*.dll' -or $_.Name -like 'CaoMinhComputer.*.dll' } |
+            Copy-Item -Destination artifacts/to-sign
+      - name: Upload file chưa ký
+        if: env.SIGN == 'true'
+        id: upload-app
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-files-unsigned
+          path: artifacts/to-sign/
+      - name: SignPath – ký file chương trình
+        if: env.SIGN == 'true'
+        uses: signpath/github-action-submit-signing-request@v1
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ vars.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ vars.SIGNPATH_POLICY_SLUG }}
+          artifact-configuration-slug: app-files
+          github-artifact-id: ${{ steps.upload-app.outputs.artifact-id }}
+          wait-for-completion: true
+          output-artifact-directory: artifacts/signed-app
+      - name: Thay bằng file đã ký
+        if: env.SIGN == 'true'
+        shell: pwsh
+        run: Copy-Item artifacts/signed-app/* artifacts/publish/ -Force
+
+      # ---------- Bộ cài ----------
+      - name: Cài Inno Setup
+        run: choco install innosetup -y --no-progress
+      - name: Tạo bộ cài
+        shell: pwsh
+        run: |
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          & $iscc "/DMyAppVersion=${{ steps.ver.outputs.version }}" "/DPublishDir=$PWD\artifacts\publish" installer\CaoMinhComputer.iss
+          if ($LASTEXITCODE -ne 0) { throw 'Inno Setup lỗi' }
+      - name: Upload bộ cài chưa ký
+        id: upload-installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer-unsigned
+          path: artifacts/installer/ConNgoan-Setup-x64.exe
+      - name: SignPath – ký bộ cài
+        if: env.SIGN == 'true'
+        uses: signpath/github-action-submit-signing-request@v1
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ vars.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ vars.SIGNPATH_POLICY_SLUG }}
+          artifact-configuration-slug: installer
+          github-artifact-id: ${{ steps.upload-installer.outputs.artifact-id }}
+          wait-for-completion: true
+          output-artifact-directory: artifacts/signed-installer
+      - name: Chọn bộ cài phát hành
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts/release | Out-Null
+          $src = if ('${{ env.SIGN }}' -eq 'true') { 'artifacts/signed-installer/ConNgoan-Setup-x64.exe' } else { 'artifacts/installer/ConNgoan-Setup-x64.exe' }
+          Copy-Item $src artifacts/release/
+          $h = (Get-FileHash artifacts/release/ConNgoan-Setup-x64.exe -Algorithm SHA256).Hash.ToLower()
+          "SHA-256: $h" | Tee-Object artifacts/release/SHA256.txt
+          $sig = Get-AuthenticodeSignature artifacts/release/ConNgoan-Setup-x64.exe
+          "Chữ ký: $($sig.Status) $($sig.SignerCertificate.Subject)"
+
+      - name: GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Con Ngoan ${{ steps.ver.outputs.version }}
+          files: |
+            artifacts/release/ConNgoan-Setup-x64.exe
+            artifacts/release/SHA256.txt
+          body: |
+            Con Ngoan ${{ steps.ver.outputs.version }} – phần mềm miễn phí giúp phụ huynh quản lý máy tính Windows của con.
+            Phát triển bởi Cao Minh Computer (CÔNG TY TNHH CAO MINH THĂNG LONG).
+
+            Trang chính thức, hướng dẫn và hỗ trợ: https://caominhcomputer.com/phan-mem-con-ngoan/
+            Hotline/Zalo: 0936 203 209 · Yêu cầu: Windows 10/11 64-bit · Mã SHA-256 trong file SHA256.txt

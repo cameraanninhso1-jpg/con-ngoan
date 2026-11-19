@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>CaoMinhComputer.Agent</RootNamespace>
+    <AssemblyName>ConNgoan.Agent</AssemblyName>
+    <ApplicationIcon>..\CaoMinhComputer.UI\Assets\app.ico</ApplicationIcon>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <ConcurrentGarbageCollection>false</ConcurrentGarbageCollection>
+    <TieredPGO>true</TieredPGO>
+    <Description>Tiện ích trong phiên của con: thời gian còn lại, xin thêm giờ</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <RuntimeHostConfigurationOption Include="System.GC.ConserveMemory" Value="7" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CaoMinhComputer.Core\CaoMinhComputer.Core.csproj" />
+  </ItemGroup>
+</Project>

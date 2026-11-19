@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Hướng dẫn sử dụng Con Ngoan {{VERSION}}</title>
+<style>
+  @page { size: A4; margin: 16mm 15mm 18mm; }
+  :root { --navy:#13214f; --gold:#f1b218; --muted:#5b6478; --line:#e3e8ef; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color:#1d2433; font-size:11.5pt; line-height:1.55; margin:0; }
+  .cover { background:var(--navy); color:#fff; border-radius:14px; padding:26px 28px; margin-bottom:20px; }
+  .cover h1 { margin:0; font-size:28pt; line-height:1.1; } .cover h1 span { color:var(--gold); }
+  .cover p { margin:8px 0 0; color:#c9d4f2; }
+  h2 { color:var(--navy); font-size:16pt; border-bottom:3px solid var(--gold); padding-bottom:4px; margin:26px 0 10px; break-after:avoid; }
+  h3 { color:var(--navy); font-size:12.5pt; margin:16px 0 6px; break-after:avoid; }
+  figure { margin:10px 0 14px; break-inside:avoid; } figure img { width:100%; border:1px solid var(--line); border-radius:6px; }
+  figcaption { font-size:9.5pt; color:var(--muted); text-align:center; margin-top:4px; }
+  .note { background:#fffbf0; border-left:4px solid var(--gold); border-radius:6px; padding:9px 12px; margin:10px 0; break-inside:avoid; }
+  .ok { background:#f0fdf4; border-left:4px solid #16a34a; border-radius:6px; padding:9px 12px; margin:10px 0; break-inside:avoid; }
+  table { border-collapse:collapse; width:100%; margin:8px 0 12px; font-size:10.5pt; break-inside:avoid; }
+  td, th { border:1px solid var(--line); padding:6px 8px; vertical-align:top; text-align:left; } th { background:#f4f6fb; }
+  code { background:#f1f3f8; padding:1px 4px; border-radius:4px; font-size:10pt; }
+  .footer { margin-top:28px; color:var(--muted); font-size:9.5pt; border-top:1px solid var(--line); padding-top:8px; }
+  .page-break { break-before:page; }
+</style>
+</head>
+<body>
+<div class="cover">
+  <h1>Con <span>Ngoan</span></h1>
+  <p><strong style="color:#fff">Hướng dẫn sử dụng – phiên bản {{VERSION}}</strong><br>
+  Phần mềm giúp phụ huynh quản lý máy tính Windows của con · phát triển bởi Cao Minh Computer<br>
+  Miễn phí 100% · Hotline/Zalo 0936 203 209 · caominhcomputer.com</p>
+</div>
+
+<h2>1. Trước khi cài</h2>
+<ul>
+  <li>Máy tính chạy <strong>Windows 10 hoặc Windows 11 bản 64-bit</strong>.</li>
+  <li>Bố mẹ có tài khoản Windows loại <strong>Administrator</strong> (thường là tài khoản tạo đầu tiên khi mua máy) và nhớ mật khẩu của tài khoản đó.</li>
+  <li>Con sẽ dùng một tài khoản Windows riêng. Nếu chưa có, Con Ngoan tạo giúp ở bước 4.</li>
+</ul>
+<div class="note"><strong>Vì sao con cần tài khoản riêng?</strong> Tài khoản riêng của con là loại <em>Standard User</em>: con không tự cài phần mềm, không gỡ được Con Ngoan, và mọi giới hạn chỉ áp cho con – máy của bố mẹ dùng bình thường.</div>
+
+<h2>2. Cài đặt</h2>
+<ol>
+  <li>Đăng nhập Windows bằng tài khoản của <strong>bố mẹ</strong>.</li>
+  <li>Tải <code>ConNgoan-Setup-x64.exe</code> tại <strong>caominhcomputer.com/phan-mem-con-ngoan</strong>. Nếu trình duyệt báo file <em>“isn’t commonly downloaded”</em>: bấm <strong>⋯</strong> cạnh file → <strong>Keep</strong> → <strong>Keep anyway</strong>.</li>
+  <li>Mở file. Khi hiện màn hình xanh <em>“Windows protected your PC”</em>: bấm <strong>More info</strong> (Thông tin thêm) → <strong>Run anyway</strong> (Vẫn chạy). Đây là cảnh báo chung cho phần mềm mới, không phải virus – bộ cài đã kiểm tra trên VirusTotal: 0/67 phần mềm diệt virus phát hiện.</li>
+  <li>Windows hỏi <em>“Do you want to allow this app to make changes…?”</em> → bấm <strong>Yes</strong>.</li>
+  <li>Bấm <strong>Next</strong> → <strong>Install</strong> → <strong>Finish</strong>.</li>
+</ol>
+<figure><img src="{{IMG}}con-ngoan-cai-dat-1-more-info.webp" alt="More info"><figcaption>Ảnh minh họa – ① bấm More info</figcaption></figure>
+<figure><img src="{{IMG}}con-ngoan-cai-dat-2-run-anyway.webp" alt="Run anyway"><figcaption>Ảnh minh họa – ② bấm Run anyway</figcaption></figure>
+<figure style="max-width:520px;margin-left:auto;margin-right:auto"><img src="{{IMG}}con-ngoan-cai-dat-3-uac-yes.webp" alt="Yes"><figcaption>Ảnh minh họa – ③ bấm Yes</figcaption></figure>
+<div class="note"><strong>Không có nút “Run anyway”?</strong> Máy Windows 11 bật <em>Smart App Control</em> chặn hẳn phần mềm chưa có chữ ký số. Gọi hoặc nhắn Zalo 0936 203 209 để được hỗ trợ cài từ xa miễn phí.</div>
+
+<h2>3. Tạo mật khẩu quản trị</h2>
+<p>Lần đầu mở Con Ngoan, bạn tạo tên đăng nhập và mật khẩu <strong>riêng của phần mềm</strong> (ít nhất 8 ký tự, có chữ và số). Mỗi lần mở app sau này đều cần mật khẩu này.</p>
+<figure><img src="{{IMG}}con-ngoan-tao-mat-khau-quan-tri.webp" alt="Tạo mật khẩu quản trị"><figcaption>Thiết lập quản trị lần đầu</figcaption></figure>
+<div class="note">Đặt mật khẩu <strong>khác</strong> mật khẩu Windows và không cho con biết. Nếu quên: đăng nhập Windows bằng tài khoản Administrator của bố mẹ, mở Con Ngoan, bấm <strong>Quên mật khẩu?</strong> để đặt lại.</div>
+
+<h2>4. Tài khoản của con – mục “Khóa cài đặt”</h2>
+<ol>
+  <li>Bấm <strong>Tạo tài khoản cho con</strong>, nhập tên (ví dụ <code>Bin</code>), đặt mật khẩu hoặc để trống nếu con còn nhỏ → <strong>Tạo tài khoản</strong>. Tài khoản mới tự được đánh dấu là của con.</li>
+  <li>Nếu máy đã có sẵn tài khoản của con: tích <strong>Tài khoản của con</strong>. Nếu tài khoản đó đang là Administrator, bấm <strong>Chuyển thành Standard User</strong>.</li>
+  <li>Ở phần <em>Khi con chạy file cài đặt</em>, giữ lựa chọn <strong>Yêu cầu mật khẩu</strong> (khuyên dùng) → <strong>Lưu &amp; áp dụng</strong>.</li>
+</ol>
+<figure><img src="{{IMG}}con-ngoan-tao-tai-khoan-con.webp" alt="Tạo tài khoản cho con"><figcaption>Tạo hoặc đánh dấu tài khoản Windows của con</figcaption></figure>
+
+<h2 class="page-break">5. Chặn web &amp; game</h2>
+<ol>
+  <li>Phần <em>Chặn website cho ai?</em> giữ <strong>Chỉ khi tài khoản của con đang dùng máy</strong> – bố mẹ dùng máy vẫn vào web bình thường.</li>
+  <li>Tích các nền tảng cần chặn: mạng xã hội, game trực tuyến, web game, công cụ vượt rào, livestream. Có thể nhập thêm tên miền bất kỳ ở ô <em>Website khác</em> (mỗi dòng một tên miền).</li>
+  <li>Phần <em>Ứng dụng &amp; game cài trên máy</em>: tích game, giả lập Android, VPN cần chặn, hoặc bấm <strong>Chọn file EXE…</strong> rồi <strong>Thêm</strong> để chặn một game bất kỳ trên máy.</li>
+  <li>Phần <em>Bảo vệ trình duyệt của con</em>: nên giữ bật <strong>Khóa DNS bảo mật</strong>, <strong>Tìm kiếm an toàn</strong> và <strong>Khóa ẩn danh</strong>.</li>
+  <li>Bấm <strong>Lưu &amp; áp dụng</strong>. Con cần đóng hẳn trình duyệt rồi mở lại để nhận chính sách mới.</li>
+</ol>
+<figure><img src="{{IMG}}con-ngoan-chan-web-game.webp" alt="Chặn web và game"><figcaption>Chọn mạng xã hội, game cần chặn</figcaption></figure>
+<div class="note">Không nên chặn <code>javaw.exe</code> nếu con dùng phần mềm học tập viết bằng Java (một số phần mềm thi, lập trình). Mục này chặn mọi phần mềm Java, không riêng Minecraft.</div>
+
+<h2>6. Thời gian sử dụng</h2>
+<ol>
+  <li>Bật <strong>Bật giới hạn thời gian</strong>.</li>
+  <li>Với từng ngày: tích ngày được dùng máy, chọn <strong>Tối đa mỗi ngày</strong> (ví dụ 2 giờ) và khung giờ <strong>Từ – Đến</strong> (ví dụ 07:00–21:00).</li>
+  <li>Chọn việc cần làm khi hết giờ: <strong>Khóa máy</strong> (về màn hình đăng nhập) hoặc <strong>Đăng xuất</strong> → <strong>Lưu &amp; áp dụng</strong>.</li>
+</ol>
+<figure><img src="{{IMG}}con-ngoan-gioi-han-thoi-gian.webp" alt="Giới hạn thời gian"><figcaption>Lịch dùng máy theo từng ngày trong tuần</figcaption></figure>
+<p>Phần mềm chỉ tính thời gian con <strong>thật sự dùng máy</strong> (không tính lúc khóa màn hình hay để không). Trước khi hết giờ 5 phút và 1 phút, máy hiện thông báo để con lưu bài:</p>
+<figure style="max-width:420px;margin-left:auto;margin-right:auto"><img src="{{IMG}}con-ngoan-canh-bao-het-gio.webp" alt="Cảnh báo sắp hết giờ"><figcaption>Thông báo sắp hết giờ trên máy của con</figcaption></figure>
+
+<h3>Con xin thêm giờ</h3>
+<p>Trên máy của con có biểu tượng Con Ngoan ở góc phải thanh tác vụ. Con chuột phải → <strong>Xin thêm thời gian…</strong>, chọn 15/30/60 phút và ghi lý do. Bố mẹ duyệt trong app (mục <em>Thời gian sử dụng</em>) hoặc trên điện thoại qua Telegram (mục 9).</p>
+
+<h2 class="page-break">7. Giờ giải lao</h2>
+<p>Đặt các khung giờ con được thư giãn (ví dụ 20:00–20:30): trong khung giờ này mạng xã hội, game được tạm mở; hết giờ tự chặn lại, có thể tự đóng trình duyệt.</p>
+<figure><img src="{{IMG}}con-ngoan-gio-giai-lao.webp" alt="Giờ giải lao"><figcaption>Khung giờ giải lao</figcaption></figure>
+
+<h2>8. Bảo mật &amp; gỡ app</h2>
+<ul>
+  <li><strong>Dịch vụ bảo vệ</strong> phải ở trạng thái <em>đang chạy</em> (chấm xanh ở góc trái dưới).</li>
+  <li><strong>Tạm tắt bảo vệ</strong> khi bố mẹ cần dùng tài khoản của con để làm việc; nhớ bật lại.</li>
+  <li><strong>Chống can thiệp</strong>: nên bật cả 3 ô – khóa Task Manager/Regedit/CMD trên tài khoản con, tự mở lại tiện ích nếu con tắt, đóng ngay ứng dụng bị chặn khi vừa mở.</li>
+  <li><strong>Gỡ cài đặt</strong>: bấm nút ở cuối trang, nhập lại mật khẩu quản trị. Máy được trả về như trước khi cài.</li>
+</ul>
+<figure><img src="{{IMG}}con-ngoan-bao-mat-telegram.webp" alt="Bảo mật"><figcaption>Trang Bảo mật &amp; gỡ app</figcaption></figure>
+
+<h2>9. Nhận thông báo trên điện thoại qua Telegram (tùy chọn)</h2>
+<ol>
+  <li>Trên điện thoại mở Telegram, tìm <strong>@BotFather</strong> → gõ <code>/newbot</code> → đặt tên → nhận <strong>Bot Token</strong>.</li>
+  <li>Tìm <strong>@userinfobot</strong> → bấm Start → ghi lại số <strong>Id</strong> (Chat ID của bạn).</li>
+  <li>Mở bot vừa tạo và bấm <strong>Start</strong>.</li>
+  <li>Trong Con Ngoan: <strong>Bảo mật &amp; gỡ app</strong> → bật <strong>Thông báo &amp; điều khiển từ xa qua Telegram</strong>, dán Token và Chat ID → <strong>Lưu</strong> → <strong>Gửi tin nhắn thử nghiệm</strong>.</li>
+</ol>
+<table>
+  <tr><th>Lệnh gửi cho bot</th><th>Tác dụng</th></tr>
+  <tr><td><code>/status</code></td><td>Thời gian đã dùng, còn lại hôm nay</td></tr>
+  <tr><td><code>/cho 30</code></td><td>Cho thêm 30 phút hôm nay</td></tr>
+  <tr><td><code>/tuchoi</code></td><td>Từ chối yêu cầu xin giờ đang chờ</td></tr>
+  <tr><td><code>/khoa</code></td><td>Đưa máy của con về màn hình đăng nhập</td></tr>
+  <tr><td><code>/muonmay 30</code></td><td>Tạm tắt bảo vệ 30 phút (phải bấm xác nhận), hết giờ tự bật lại</td></tr>
+  <tr><td><code>/bat</code></td><td>Bật lại bảo vệ ngay</td></tr>
+</table>
+<div class="note">Bot chỉ nhận lệnh trong tin nhắn <strong>riêng</strong> từ đúng tài khoản Telegram của bạn. Hãy bật mật khẩu 2 lớp cho Telegram. Thông tin gửi qua Telegram gồm tên tài khoản của con, tên máy, số phút sử dụng, lý do xin giờ – không có ảnh màn hình hay nội dung con xem.</div>
+
+<h2 class="page-break">10. Đổi người dùng, nhật ký và cập nhật</h2>
+<ul>
+  <li><strong>Đổi người dùng</strong> (thanh bên trái): về màn hình đăng nhập Windows để chọn tài khoản của con hoặc của bố mẹ; ứng dụng đang mở vẫn giữ nguyên. Trên máy của con: chuột phải biểu tượng Con Ngoan → <em>Đổi người dùng (để bố mẹ đăng nhập)</em>.</li>
+  <li><strong>Nhật ký hoạt động</strong>: xem lại các lần chặn, xin giờ, thay đổi cấu hình; lọc theo ngày, xuất file CSV.</li>
+  <li><strong>Cập nhật</strong>: mục <strong>Giới thiệu</strong> → <strong>Kiểm tra cập nhật</strong>. Có bản mới thì bấm <strong>Cài phiên bản…</strong>; phần mềm chỉ cài bản có chữ ký số của Cao Minh, cấu hình được giữ nguyên.</li>
+</ul>
+<figure><img src="{{IMG}}con-ngoan-gioi-thieu-cap-nhat.webp" alt="Giới thiệu và cập nhật"><figcaption>Trang Giới thiệu: phiên bản, cập nhật, hotline</figcaption></figure>
+
+<h2>11. Câu hỏi thường gặp &amp; xử lý sự cố</h2>
+<table>
+  <tr><th>Hiện tượng</th><th>Cách xử lý</th></tr>
+  <tr><td>Con vẫn vào được trang đã chặn</td><td>Đóng hẳn trình duyệt của con rồi mở lại. Kiểm tra phần <em>Chặn website cho ai?</em> và tài khoản của con đã được đánh dấu. Nếu con dùng Wi-Fi điện thoại có VPN, hãy cất điện thoại.</td></tr>
+  <tr><td>Tab ẩn danh vẫn mở được</td><td>Kiểm tra ô <em>Khóa ẩn danh</em> đã bật, rồi con đăng xuất/đăng nhập lại hoặc đóng hẳn trình duyệt.</td></tr>
+  <tr><td>Không thấy biểu tượng Con Ngoan trên máy của con</td><td>Bấm mũi tên ^ ở góc phải thanh tác vụ. Nếu không có, bật <em>Tự động khởi động lại tiện ích</em> trong mục Bảo mật.</td></tr>
+  <tr><td>Chấm đỏ “Dịch vụ nền đã dừng”</td><td>Mục Bảo mật → <strong>Khởi động</strong>. Nếu vẫn lỗi, cài lại bằng bộ cài mới nhất (cấu hình được giữ).</td></tr>
+  <tr><td>Quên mật khẩu quản trị</td><td>Đăng nhập Windows bằng tài khoản Administrator của bố mẹ → mở Con Ngoan → <strong>Quên mật khẩu?</strong></td></tr>
+  <tr><td>Phần mềm diệt virus báo nhầm</td><td>Con Ngoan sửa file HOSTS và đóng ứng dụng bị chặn nên đôi khi bị nghi nhầm. Gọi 0936 203 209 để được hướng dẫn thêm ngoại lệ.</td></tr>
+</table>
+
+<div class="ok"><strong>Hỗ trợ miễn phí:</strong> gọi hoặc nhắn Zalo <strong>0936 203 209</strong> · caominhcomputer.com · Cao Minh Computer nhận cài đặt tận nơi tại Hà Nội và cài từ xa qua UltraViewer.</div>
+<div class="footer">Con Ngoan {{VERSION}} – phần mềm phi lợi nhuận, phát triển và tài trợ miễn phí 100% bởi CÔNG TY TNHH CAO MINH THĂNG LONG (Cao Minh Computer). Ảnh chụp màn hình có thể khác đôi chút theo phiên bản Windows.</div>
+</body>
+</html>

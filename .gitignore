@@ -1,0 +1,10 @@
+*.pem
+*.key
+bin/
+obj/
+artifacts/
+.vs/
+TestResults/
+*.binlog
+docs/website/xuat-ban/
+*.user

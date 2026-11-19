@@ -1,0 +1,13 @@
+<Window x:Class="CaoMinhComputer.UI.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Con Ngoan – phát triển bởi Cao Minh Computer"
+        Width="1240" Height="820" MinWidth="980" MinHeight="660"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Assets/app.ico"
+        FontFamily="{StaticResource UiFont}"
+        Background="{StaticResource NavyBrush}"
+        TextOptions.TextFormattingMode="Display"
+        UseLayoutRounding="True">
+    <ContentControl x:Name="Host" Focusable="False" />
+</Window>

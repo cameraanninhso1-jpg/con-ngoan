@@ -1,0 +1,17 @@
+﻿<Project>
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows10.0.17763.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <Version>1.6.0</Version>
+    <Company>CÔNG TY TNHH CAO MINH THĂNG LONG</Company>
+    <Product>Con Ngoan</Product>
+    <Copyright>© CÔNG TY TNHH CAO MINH THĂNG LONG (Cao Minh Computer)</Copyright>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+  </PropertyGroup>
+</Project>

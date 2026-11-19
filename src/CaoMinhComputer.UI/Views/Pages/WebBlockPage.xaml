@@ -1,0 +1,287 @@
+<UserControl x:Class="CaoMinhComputer.UI.Views.Pages.WebBlockPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:CaoMinhComputer.UI.Controls">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="36,30,36,30">
+            <!-- Tiêu đề -->
+            <Grid Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Text="Chặn website &amp; game trực tuyến" Style="{StaticResource PageTitle}" />
+                    <TextBlock Text="Tích chọn nền tảng cần chặn trên máy tính học tập của con, sau đó bấm Lưu &amp; áp dụng." Style="{StaticResource PageSubtitle}" />
+                </StackPanel>
+                <Border Grid.Column="1" Style="{StaticResource Pill}" VerticalAlignment="Top" Margin="16,4,0,0"
+                        Visibility="{Binding IsDirty, Converter={StaticResource BoolToVis}}">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="8" Height="8" Fill="{StaticResource AccentPressedBrush}" Margin="0,0,8,0" />
+                        <TextBlock Text="Chưa lưu thay đổi" Foreground="{StaticResource WarningBrush}" FontWeight="SemiBold" FontSize="13" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Thanh điều khiển -->
+            <Border Style="{StaticResource Card}" Padding="22,14">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Style="{StaticResource ToggleSwitch}" IsChecked="{Binding BlockAll, Mode=TwoWay}" VerticalAlignment="Center">
+                        <StackPanel>
+                            <TextBlock Text="Chặn tất cả" FontWeight="Bold" FontSize="16" Foreground="{StaticResource TextBrush}" />
+                            <TextBlock Text="{Binding SelectedText}" Style="{StaticResource Muted}" />
+                        </StackPanel>
+                    </CheckBox>
+                    <Button Grid.Column="1" Content="Bỏ chọn hết" Command="{Binding ClearAllCommand}" Margin="12,0" MinWidth="130" />
+                    <Button Grid.Column="2" Content="{Binding SaveButtonText}" Command="{Binding SaveCommand}"
+                            Style="{StaticResource PrimaryButton}" MinWidth="190" Height="46" FontSize="16" />
+                </Grid>
+            </Border>
+
+            <c:StatusBanner DataContext="{Binding Status}" />
+
+            <!-- Phạm vi chặn -->
+            <TextBlock Text="CHẶN WEBSITE CHO AI?" Style="{StaticResource SectionHeader}" Margin="2,4,0,8" />
+            <UniformGrid Columns="2" Margin="0,0,-16,10">
+                <RadioButton Style="{StaticResource RadioCard}" GroupName="WebScope" Margin="0,0,16,0" IsChecked="{Binding ScopeChildren, Mode=TwoWay}">
+                    <StackPanel>
+                        <TextBlock Text="Chỉ khi tài khoản của con đang dùng máy" Style="{StaticResource CardTitle}" />
+                        <TextBlock Text="Khuyên dùng" Foreground="{StaticResource SuccessBrush}" FontWeight="Bold" FontSize="13" />
+                        <TextBlock Style="{StaticResource Muted}" Margin="0,6,0,0"
+                                   Text="Con đăng nhập/chuyển sang tài khoản của con → tự chặn trong vài giây. Phụ huynh dùng tài khoản của mình → vào web bình thường." />
+                    </StackPanel>
+                </RadioButton>
+                <RadioButton Style="{StaticResource RadioCard}" GroupName="WebScope" Margin="0,0,16,0" IsChecked="{Binding ScopeAll, Mode=TwoWay}">
+                    <StackPanel>
+                        <TextBlock Text="Mọi tài khoản trên máy" Style="{StaticResource CardTitle}" />
+                        <TextBlock Style="{StaticResource Muted}" Margin="0,6,0,0"
+                                   Text="Chặn cho tất cả, kể cả tài khoản phụ huynh. Dùng khi máy chỉ dành cho con hoặc con dùng chung tài khoản." />
+                    </StackPanel>
+                </RadioButton>
+            </UniformGrid>
+            <Border Background="{StaticResource BlueSoftBrush}" CornerRadius="10" Padding="16,10" Margin="0,0,0,16">
+                <TextBlock Text="{Binding ScopeStateText}" Style="{StaticResource Muted}" Foreground="{StaticResource TextBrush}" />
+            </Border>
+
+            <!-- Mạng xã hội -->
+            <Grid Margin="0,4,0,0">
+                <TextBlock Text="MẠNG XÃ HỘI" Style="{StaticResource SectionHeader}" />
+                <Button Content="{Binding SocialToggleText}" Command="{Binding ToggleSocialCommand}" Style="{StaticResource LinkButton}"
+                        HorizontalAlignment="Right" VerticalAlignment="Top" />
+            </Grid>
+            <ItemsControl ItemsSource="{Binding Social}" Margin="0,0,-14,6">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Style="{StaticResource PlatformCard}" IsChecked="{Binding IsBlocked, Mode=TwoWay}" ToolTip="{Binding Tooltip}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- Game -->
+            <Grid Margin="0,8,0,0">
+                <TextBlock Text="GAME TRỰC TUYẾN &amp; LAUNCHER" Style="{StaticResource SectionHeader}" />
+                <Button Content="{Binding GamesToggleText}" Command="{Binding ToggleGamesCommand}" Style="{StaticResource LinkButton}"
+                        HorizontalAlignment="Right" VerticalAlignment="Top" />
+            </Grid>
+            <ItemsControl ItemsSource="{Binding Games}" Margin="0,0,-14,6">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Style="{StaticResource PlatformCard}" IsChecked="{Binding IsBlocked, Mode=TwoWay}" ToolTip="{Binding Tooltip}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- Web Game -->
+            <Grid Margin="0,8,0,0">
+                <TextBlock Text="WEB GAME &amp; MINI GAME (CHƠI TRÊN TRÌNH DUYỆT)" Style="{StaticResource SectionHeader}" />
+                <Button Content="{Binding WebGamesToggleText}" Command="{Binding ToggleWebGamesCommand}" Style="{StaticResource LinkButton}"
+                        HorizontalAlignment="Right" VerticalAlignment="Top" />
+            </Grid>
+            <ItemsControl ItemsSource="{Binding WebGames}" Margin="0,0,-14,6">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Style="{StaticResource PlatformCard}" IsChecked="{Binding IsBlocked, Mode=TwoWay}" ToolTip="{Binding Tooltip}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- Công cụ vượt rào & Web Proxy -->
+            <Grid Margin="0,8,0,0">
+                <TextBlock Text="CÔNG CỤ VƯỢT RÀO &amp; WEB PROXY (CHỐNG LÁCH BẢO VỆ)" Style="{StaticResource SectionHeader}" />
+                <Button Content="{Binding BypassToolsToggleText}" Command="{Binding ToggleBypassToolsCommand}" Style="{StaticResource LinkButton}"
+                        HorizontalAlignment="Right" VerticalAlignment="Top" />
+            </Grid>
+            <ItemsControl ItemsSource="{Binding BypassTools}" Margin="0,0,-14,6">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Style="{StaticResource PlatformCard}" IsChecked="{Binding IsBlocked, Mode=TwoWay}" ToolTip="{Binding Tooltip}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- Livestream & Giải trí -->
+            <Grid Margin="0,8,0,0">
+                <TextBlock Text="LIVESTREAM &amp; STREAMING GAME" Style="{StaticResource SectionHeader}" />
+                <Button Content="{Binding EntertainmentToggleText}" Command="{Binding ToggleEntertainmentCommand}" Style="{StaticResource LinkButton}"
+                        HorizontalAlignment="Right" VerticalAlignment="Top" />
+            </Grid>
+            <ItemsControl ItemsSource="{Binding Entertainment}" Margin="0,0,-14,6">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Style="{StaticResource PlatformCard}" IsChecked="{Binding IsBlocked, Mode=TwoWay}" ToolTip="{Binding Tooltip}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- Website khác -->
+            <TextBlock Style="{StaticResource SectionHeader}" Margin="2,6,0,8">
+                <Run Text="WEBSITE KHÁC" /><Run Text="  ·  mỗi dòng một tên miền, ví dụ: shopee.vn" FontWeight="Normal" />
+            </TextBlock>
+            <TextBox Style="{StaticResource Input}" Text="{Binding CustomDomainsText, UpdateSourceTrigger=PropertyChanged}"
+                     AcceptsReturn="True" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto" Height="130"
+                     VerticalContentAlignment="Top" Tag="shopee.vn&#x0a;example.com" />
+            <TextBlock Style="{StaticResource Muted}" Margin="2,8,0,0"
+                       Text="Tự động chặn cả www. và m. của tên miền. HOSTS chỉ chặn được cả tên miền, không chặn riêng một đường dẫn (ví dụ /blog)." />
+            <TextBlock Style="{StaticResource Muted}" Margin="2,6,0,0" Foreground="{StaticResource WarningBrush}" Text="{Binding DomainNotes}"
+                       Visibility="{Binding HasDomainNotes, Converter={StaticResource BoolToVis}}" />
+
+            <!-- Bảo vệ trình duyệt -->
+            <TextBlock Text="BẢO VỆ TRÌNH DUYỆT CỦA CON (CHỐNG LÁCH HOSTS &amp; VPN)" Style="{StaticResource SectionHeader}" Margin="2,26,0,4" />
+            <TextBlock Style="{StaticResource Muted}" Margin="2,0,0,8" TextWrapping="Wrap" Text="Chỉ áp dụng cho tài khoản của con (Chrome, Edge, Brave, Cốc Cốc, Firefox); trình duyệt của phụ huynh không bị ảnh hưởng. Con cần mở lại trình duyệt để nhận chính sách mới." />
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <CheckBox Style="{StaticResource CheckSquare}" IsChecked="{Binding DisableDoH, Mode=TwoWay}">
+                        <StackPanel>
+                            <TextBlock Text="Khóa DNS bảo mật (DNS-over-HTTPS / DoH) trên trình duyệt" FontWeight="SemiBold" FontSize="15"
+                                       Foreground="{StaticResource TextBrush}" TextWrapping="Wrap" />
+                            <TextBlock Style="{StaticResource Muted}"
+                                       Text="Áp dụng chính sách cho Chrome, Edge, Firefox, Brave, Cốc Cốc: bắt buộc dùng DNS hệ điều hành và file HOSTS, ngăn con bật DoH để vào web bị chặn." />
+                        </StackPanel>
+                    </CheckBox>
+
+                    <CheckBox Style="{StaticResource CheckSquare}" IsChecked="{Binding BlockExtensions, Mode=TwoWay}" Margin="0,16,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Chặn tiện ích mở rộng (Extension / Add-on)" FontWeight="SemiBold" FontSize="15"
+                                       Foreground="{StaticResource TextBrush}" TextWrapping="Wrap" />
+                            <TextBlock Style="{StaticResource Muted}"
+                                       Text="Ngăn con cài tiện ích VPN / Proxy để lách kiểm soát. Lưu ý: các tiện ích con ĐÃ cài cũng bị tắt (kể cả tiện ích học tập)." TextWrapping="Wrap" />
+                        </StackPanel>
+                    </CheckBox>
+
+                    <CheckBox Style="{StaticResource CheckSquare}" IsChecked="{Binding SafeSearch, Mode=TwoWay}" Margin="0,16,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Bắt buộc Tìm kiếm an toàn (Google/Bing SafeSearch &amp; YouTube hạn chế)" FontWeight="SemiBold" FontSize="15"
+                                       Foreground="{StaticResource TextBrush}" TextWrapping="Wrap" />
+                            <TextBlock Style="{StaticResource Muted}"
+                                       Text="Tự động lọc hình ảnh nhạy cảm, nội dung 18+ và video độc hại trên Google, Bing và chế độ nghiêm ngặt của YouTube." />
+                        </StackPanel>
+                    </CheckBox>
+
+                    <CheckBox Style="{StaticResource CheckSquare}" IsChecked="{Binding BlockIncognito, Mode=TwoWay}" Margin="0,16,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Khóa chế độ duyệt web ẩn danh (Incognito / InPrivate)" FontWeight="SemiBold" FontSize="15"
+                                       Foreground="{StaticResource TextBrush}" TextWrapping="Wrap" />
+                            <TextBlock Style="{StaticResource Muted}"
+                                       Text="Con không mở được tab ẩn danh trên Chrome, Edge, Cốc Cốc, Brave, Firefox." TextWrapping="Wrap" />
+                        </StackPanel>
+                    </CheckBox>
+                </StackPanel>
+            </Border>
+
+            <!-- Ứng dụng trên máy -->
+            <Grid Margin="0,26,0,8">
+                <TextBlock Text="ỨNG DỤNG &amp; GAME CÀI TRÊN MÁY" Style="{StaticResource SectionHeader}" />
+                <Button Content="{Binding AppsToggleText}" Command="{Binding ToggleAppsCommand}" Style="{StaticResource LinkButton}"
+                        HorizontalAlignment="Right" VerticalAlignment="Top" />
+            </Grid>
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="{Binding ChildAccountsText}" Style="{StaticResource Muted}" Foreground="{StaticResource TextBrush}" FontWeight="SemiBold" />
+                    <TextBlock Style="{StaticResource Muted}" Margin="0,6,0,14"
+                               Text="Windows Enterprise/Education/Pro: chặn bằng AppLocker theo tài khoản con – ứng dụng bị chặn ở mọi thư mục, kể cả khi được launcher khởi chạy (bật thêm Chế độ nghiêm ngặt ở mục Khóa cài đặt để chặn cả game portable). Windows Home: mức cơ bản DisallowRun chặn khi mở từ Start/Desktop/File Explorer – bật tùy chọn tự đóng bên dưới để dịch vụ nền đóng ứng dụng mở bằng cách khác." />
+
+                    <ItemsControl ItemsSource="{Binding Apps}" Margin="0,0,-14,6">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Style="{StaticResource AppCard}" IsChecked="{Binding Enabled, Mode=TwoWay}" ToolTip="{Binding Tooltip}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <Grid Margin="0,16,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Style="{StaticResource Input}" Text="{Binding NewProcessText, UpdateSourceTrigger=PropertyChanged}"
+                                 Tag="Nhập tên tiến trình, ví dụ: Minecraft.exe" />
+                        <Button Grid.Column="1" Content="Thêm" Command="{Binding AddProcessCommand}" Margin="10,0,0,0" MinWidth="90" />
+                        <Button Grid.Column="2" Style="{StaticResource BlueButton}" Margin="10,0,0,0" Click="OnPickExe">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE8B7;" Style="{StaticResource Icon}" Margin="0,0,8,0" />
+                                <TextBlock Text="Chọn file EXE..." />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+                    <CheckBox Style="{StaticResource CheckSquare}" IsChecked="{Binding AutoClose, Mode=TwoWay}" Margin="0,18,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Tự động đóng ứng dụng bị chặn nếu con mở bằng cách khác" FontWeight="SemiBold" FontSize="15"
+                                       Foreground="{StaticResource TextBrush}" TextWrapping="Wrap" />
+                            <TextBlock Style="{StaticResource Muted}"
+                                       Text="Dịch vụ nền kiểm tra khoảng 20 giây/lần và chỉ đóng tiến trình thuộc tài khoản của con. Có thể làm mất dữ liệu chưa lưu trong ứng dụng đó." />
+                        </StackPanel>
+                    </CheckBox>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource DarkInfoCard}">
+                <StackPanel>
+                    <TextBlock Text="Cơ chế bảo vệ &amp; lưu ý khi sử dụng" Foreground="{StaticResource AccentBrush}" FontWeight="Bold" FontSize="15" />
+                    <TextBlock Foreground="White" TextWrapping="Wrap" Margin="0,6,0,0" LineHeight="21" FontSize="13">
+                        <Run Text="• Chống lách bảo vệ đa lớp: Hệ thống tự động khóa DoH (DNS-over-HTTPS), khóa cài tiện ích mở rộng (Extension/VPN), bắt buộc SafeSearch và khóa chế độ duyệt web ẩn danh trên các trình duyệt." /><LineBreak />
+                        <Run Text="• Chặn Web Proxy &amp; VPN độc lập: Đã tích hợp sẵn danh mục chặn các trang Web Proxy trung gian (CroxyProxy, KProxy, ProxySite...) và các tiến trình VPN (WARP 1.1.1.1, UltraSurf, ProtonVPN)." /><LineBreak />
+                        <Run Text="• Làm mới trình duyệt: Nếu trình duyệt đang mở sẵn kết nối cũ từ trước, hãy khởi động lại trình duyệt để chính sách chặn mới có hiệu lực ngay lập tức." /><LineBreak />
+                        <Run Text="• Tài khoản của con: Cần đặt là tài khoản người dùng tiêu chuẩn (Standard User) ở mục Khóa cài đặt để Windows ngăn con tự sửa file HOSTS hoặc can thiệp chính sách hệ thống." />
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

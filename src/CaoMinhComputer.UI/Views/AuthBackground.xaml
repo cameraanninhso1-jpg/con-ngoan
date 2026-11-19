@@ -1,0 +1,27 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Nền màn hình đăng nhập: xanh navy với các dải chéo xanh logo mờ. -->
+    <Style x:Key="AuthRoot" TargetType="Grid">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#0C1840" Offset="0" />
+                    <GradientStop Color="#13245A" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="AuthCard" TargetType="Border">
+        <Setter Property="Background" Value="White" />
+        <Setter Property="CornerRadius" Value="18" />
+        <Setter Property="Width" Value="460" />
+        <Setter Property="Padding" Value="44,34,44,28" />
+        <Setter Property="BorderBrush" Value="{StaticResource AccentBrush}" />
+        <Setter Property="BorderThickness" Value="0,6,0,0" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="30" ShadowDepth="6" Opacity="0.35" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

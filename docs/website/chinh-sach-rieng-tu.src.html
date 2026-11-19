@@ -1,0 +1,39 @@
+<h1>Chính sách quyền riêng tư – phần mềm Con Ngoan</h1>
+<p><em>Áp dụng từ phiên bản {{VERSION}}, cập nhật ngày {{DATE}}.</em> Chính sách này giải thích phần mềm <strong>Con Ngoan</strong> (do CÔNG TY TNHH CAO MINH THĂNG LONG – Cao Minh Computer phát triển, sau đây gọi là “chúng tôi”) xử lý dữ liệu như thế nào. Chính sách chỉ áp dụng cho phần mềm Con Ngoan; việc dùng website caominhcomputer.com theo <a href="https://caominhcomputer.com/chinh-sach-bao-mat/">Chính sách bảo mật thông tin</a> của website.</p>
+
+<h2>1. Tóm tắt</h2>
+<ul>
+<li>Con Ngoan <strong>không thu thập</strong> dữ liệu cá nhân của bạn hay của con và <strong>không gửi</strong> dữ liệu về máy chủ của chúng tôi.</li>
+<li>Con Ngoan <strong>không chụp màn hình, không ghi phím bấm, không đọc tin nhắn, không ghi lịch sử duyệt web</strong>, không có quảng cáo, không bán dữ liệu.</li>
+<li>Cấu hình và nhật ký nằm trên chính máy tính được cài, chỉ tài khoản quản trị Windows của máy đó truy cập được.</li>
+<li>Dữ liệu chỉ rời khỏi máy khi <strong>bố mẹ tự bật Telegram</strong> (mục 4) và khi phần mềm <strong>kiểm tra bản cập nhật</strong> (mục 5).</li>
+</ul>
+
+<h2>2. Dữ liệu lưu trên máy tính</h2>
+<p>Để hoạt động, Con Ngoan lưu trong thư mục <code>C:\ProgramData\ConNgoan</code> (chỉ tài khoản SYSTEM và Administrators đọc được, tài khoản của con không đọc được):</p>
+<ul>
+<li>Tên đăng nhập quản trị của phụ huynh và mật khẩu ở dạng <strong>băm một chiều</strong> (PBKDF2-SHA256) – không ai đọc lại được mật khẩu gốc.</li>
+<li>Cấu hình: danh sách web/ứng dụng bị chặn, lịch thời gian, tài khoản Windows nào là của con.</li>
+<li>Số phút dùng máy mỗi ngày của từng tài khoản con, yêu cầu xin thêm giờ (kèm lý do con nhập).</li>
+<li>Nhật ký hoạt động: thời điểm áp dụng chặn, ứng dụng bị đóng, thay đổi cấu hình, thao tác quản trị. Nhật ký <strong>không</strong> chứa nội dung trang web, phím bấm hay hình ảnh; tự xóa sau 180 ngày hoặc khi vượt 50.000 dòng.</li>
+<li>Bot Token và Chat ID Telegram (nếu bố mẹ bật Telegram).</li>
+</ul>
+<p>Dữ liệu này không được gửi cho chúng tôi. Bạn xem, xuất (CSV) hoặc xóa nhật ký ngay trong phần mềm; khi gỡ cài đặt, bạn có thể chọn xóa toàn bộ dữ liệu.</p>
+
+<h2>3. Những thay đổi trên Windows</h2>
+<p>Để chặn và bảo vệ, Con Ngoan thay đổi một số thiết lập của Windows: file HOSTS (một khối có đánh dấu riêng), chính sách chặn ứng dụng và trình duyệt trên tài khoản của con, AppLocker (Windows Pro trở lên), thiết lập UAC khi bạn chọn. Các giá trị gốc được lưu lại và <strong>trả về như cũ khi gỡ cài đặt</strong>. Phần mềm không tắt Windows Defender, Windows Update hay tường lửa.</p>
+
+<h2>4. Telegram (tùy chọn, mặc định tắt)</h2>
+<p>Chỉ khi bố mẹ tự nhập Bot Token, Chat ID và bật tính năng, Con Ngoan gửi tới tài khoản Telegram của chính bố mẹ: tên tài khoản Windows của con, tên máy tính, số phút đã dùng/còn lại, lý do con xin thêm giờ và số lần ứng dụng bị chặn trong ngày. Tin nhắn đi qua máy chủ của Telegram và chịu chính sách quyền riêng tư của Telegram. Chúng tôi không nhận được các tin nhắn này. Bạn tắt tính năng bất cứ lúc nào trong mục <em>Bảo mật &amp; gỡ app</em>.</p>
+
+<h2>5. Kiểm tra bản cập nhật</h2>
+<p>Mỗi ngày một lần (tắt được trong mục <em>Giới thiệu</em>) và khi bạn bấm <em>Kiểm tra cập nhật</em>, phần mềm tải file thông tin phiên bản từ caominhcomputer.com. Yêu cầu này không chứa dữ liệu cá nhân; như mọi lượt truy cập web, máy chủ có thể ghi nhận địa chỉ IP và thời điểm truy cập trong nhật ký kỹ thuật của hosting. Khi bạn tải bộ cài từ website hoặc GitHub, việc tải chịu chính sách của nơi lưu file.</p>
+
+<h2>6. Trẻ em</h2>
+<p>Con Ngoan là công cụ để <strong>phụ huynh hoặc người giám hộ hợp pháp</strong> quản lý máy tính của con em mình. Phần mềm không thu thập dữ liệu của trẻ em gửi cho chúng tôi. Chúng tôi khuyến khích bố mẹ cho con biết máy tính đang được quản lý (biểu tượng Con Ngoan luôn hiện ở khay hệ thống trên máy của con) và trò chuyện với con về việc dùng máy lành mạnh. Không dùng Con Ngoan để theo dõi người khác mà không có quyền hợp pháp.</p>
+
+<h2>7. Bảo mật</h2>
+<p>Thư mục dữ liệu được phân quyền chỉ cho quản trị; giao tiếp giữa các thành phần của phần mềm chỉ diễn ra trên máy (không mở cổng mạng); bản cập nhật chỉ được cài khi có chữ ký số hợp lệ của chúng tôi. Không phần mềm nào an toàn tuyệt đối – hãy đặt mật khẩu mạnh cho tài khoản Windows của bố mẹ và cho tài khoản Telegram.</p>
+
+<h2>8. Thay đổi chính sách và liên hệ</h2>
+<p>Khi chính sách thay đổi, chúng tôi cập nhật trang này và ghi ngày cập nhật ở đầu trang. Mọi thắc mắc về quyền riêng tư: CÔNG TY TNHH CAO MINH THĂNG LONG (Cao Minh Computer) – hotline/Zalo <a href="tel:0936203209">0936 203 209</a> – website <a href="https://caominhcomputer.com/">caominhcomputer.com</a>.</p>
