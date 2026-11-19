@@ -1,0 +1,31 @@
+TIÊU ĐỀ (chọn 1):
+- Chia sẻ cách quản lý giờ dùng máy tính của con + phần mềm miễn phí bên mình làm
+- Con mải game, TikTok trên máy tính: vài cách quản lý nhẹ nhàng mà hiệu quả
+
+NỘI DUNG:
+
+Chào các bố mẹ,
+
+Mình là Quyên, làm ở Cao Minh Computer – bên mình sửa máy tính, lắp mạng ở Hà Nội. Đi làm cho các gia đình, câu bọn mình bị hỏi nhiều nhất là "có cách nào chặn game cho con không", "con thức đến khuya xem TikTok". Mình chia sẻ lại mấy cách bọn mình hay hướng dẫn phụ huynh:
+
+1. Cho con một tài khoản Windows riêng (loại người dùng chuẩn – Standard User). Con không tự cài game được, cài gì cũng phải hỏi mật khẩu bố mẹ. Tài khoản của bố mẹ nhớ đặt mật khẩu.
+
+2. Thống nhất giờ với con trước, rồi mới cài phần mềm. Ví dụ: ngày thường 2 tiếng, cuối tuần 3 tiếng, sau 21h là nghỉ; làm xong bài được 30 phút "giải lao".
+
+3. Chặn những trang con hay sa đà (TikTok, game online, web game) chứ không chặn hết – để con vẫn tra cứu học được.
+
+4. Cho máy báo trước khi hết giờ để con kịp lưu bài, đỡ ấm ức.
+
+Để làm mấy việc trên cho dễ, bên mình viết một phần mềm tên "Con Ngoan" cho máy Windows 10/11: chặn game/mạng xã hội, đặt giờ theo từng ngày, giờ giải lao, sắp hết giờ thì máy nhắc, con muốn thêm giờ thì bấm xin, bố mẹ duyệt được qua điện thoại. Bên mình làm miễn phí, tiếng Việt, không quảng cáo, không chụp màn hình hay đọc tin nhắn của con, mã nguồn công khai.
+
+Bố mẹ nào cần thì mình để link hướng dẫn ở bình luận (hoặc nhắn mình). Phần mềm mới nên lúc cài Windows có thể hiện cảnh báo màu xanh, bấm "More info" rồi "Run anyway" là cài được, trong hướng dẫn có ảnh từng bước. Nhà nào đang dùng cách khác hiệu quả thì chia sẻ thêm với mọi người nhé!
+
+BÌNH LUẬN ĐẦU TIÊN (nếu diễn đàn cho phép link):
+Link tải và hướng dẫn: https://caominhcomputer.com/phan-mem-con-ngoan/
+Cần hỗ trợ cài: Zalo 0936 203 209
+
+GHI CHÚ CHO NGƯỜI ĐĂNG
+- Viết đúng danh tính thật (người của Cao Minh Computer). Không đóng vai phụ huynh hay "người dùng tình cờ" – bị phát hiện sẽ mất uy tín và dễ bị khóa tài khoản.
+- Webtretho, Làm cha mẹ… thường cấm quảng cáo ở bài đầu: đọc nội quy chuyên mục; nếu cấm link thì chỉ chia sẻ kinh nghiệm, ai hỏi mới gửi link.
+- Chuyên mục gợi ý: Webtretho → "Nuôi dạy con" / "Tuổi học trò"; Làm cha mẹ → "Giáo dục" / "Hỏi đáp phụ huynh".
+- Sửa tên "Quyên" nếu người đăng là người khác.

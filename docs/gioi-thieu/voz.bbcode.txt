@@ -1,0 +1,36 @@
+Chào các thím,
+
+Bên mình (Cao Minh Computer, làm dịch vụ IT ở Hà Nội) hay gặp phụ huynh nhờ "chặn game cho con", "con thức đến 2h sáng xem TikTok". Phần mềm sẵn có thì bản miễn phí ít tính năng, bản đầy đủ thu phí hàng tháng, toàn tiếng Anh và đa số đẩy dữ liệu lên cloud. Nên bọn mình tự viết một cái, đặt tên [B]Con Ngoan[/B]: miễn phí, tiếng Việt, [B]mã nguồn mở (GPL v3)[/B]. Lên đây khoe và nhờ các thím soi giúp.
+
+[IMG]https://caominhcomputer.com/wp-content/uploads/2026/11/con-ngoan-chan-web-game.webp[/IMG]
+
+[B]Làm được gì[/B]
+[LIST]
+[*]Chặn web & game: Facebook, TikTok, YouTube, Discord, Roblox, Garena, Steam, web game (Poki, Y8…), web proxy vượt rào… hoặc tự nhập tên miền. Chỉ chặn khi tài khoản Windows của con đang dùng máy, bố mẹ dùng tài khoản mình thì vẫn vào bình thường.
+[*]Chặn ứng dụng: game, giả lập Android (LDPlayer, BlueStacks…), VPN.
+[*]Giới hạn giờ dùng máy theo ngày, khung giờ, giờ giải lao; báo trước 5 phút/1 phút rồi khóa máy. Con bấm xin thêm giờ, bố mẹ duyệt trên máy hoặc qua bot Telegram.
+[*]Chặn lách: tắt DNS-over-HTTPS, ép SafeSearch + YouTube Restricted, khóa tab ẩn danh, khóa Task Manager/Regedit/CMD – tất cả chỉ áp cho tài khoản con.
+[*]Tạo tài khoản Standard User cho con ngay trong app → con không tự cài game được.
+[/LIST]
+
+[IMG]https://caominhcomputer.com/wp-content/uploads/2026/11/con-ngoan-gioi-han-thoi-gian.webp[/IMG]
+
+[B]Kỹ thuật cho anh em quan tâm[/B]
+[LIST]
+[*]C# / .NET 10: giao diện WPF + Windows Service chạy LocalSystem + tiện ích khay (WinForms) trong phiên của con, nói chuyện qua Named Pipe có ACL. Không Electron, không mở cổng mạng.
+[*]Chặn web bằng file HOSTS (FileSystemWatcher tự phục hồi khi bị sửa), chặn app bằng DisallowRun + AppLocker CSP (Pro trở lên) + WMI process trace để đóng ngay app bị chặn.
+[*]Đếm giờ theo phiên WTS bằng đồng hồ đơn điệu, nên chỉnh đồng hồ hệ thống không lách được.
+[*]Cập nhật tự động: manifest ký ECDSA P-256 + kiểm SHA-256, không cho hạ cấp.
+[*]Không telemetry, không chụp màn hình, không keylog; dữ liệu nằm trong SQLite ở ProgramData (chỉ SYSTEM/Admin đọc được).
+[/LIST]
+
+[B]Giới hạn – nói trước cho khỏi bị ném đá[/B]: chặn bằng HOSTS thì con cầm điện thoại phát Wi-Fi có VPN, hay mang USB trình duyệt portable lạ, vẫn có cửa lọt (AppLocker trên Pro chặn được phần lớn portable). Bộ cài chưa ký số nên SmartScreen sẽ kêu "Unknown publisher" (đã quét VirusTotal 0/67, link bên dưới). Chỉ chạy Windows 10/11 64-bit.
+
+[B]Link[/B]
+[LIST]
+[*]Mã nguồn: https://github.com/cameraanninhso1-jpg/con-ngoan
+[*]Tải + hướng dẫn cài (có ảnh vượt cảnh báo SmartScreen): https://caominhcomputer.com/phan-mem-con-ngoan/
+[*]VirusTotal: https://www.virustotal.com/gui/file/ac2f4ba44011595a5ab8f6997a0e1c5640a1660b1f9d278e66977689d7445506
+[/LIST]
+
+Mới ra bản đầu nên chắc còn lỗi, các thím dùng thử, soi code hay chỉ ra chỗ con có thể lách thì bọn mình cảm ơn nhiều. Báo lỗi ở thread này hoặc GitHub Issues đều được. Thím nào thấy có ích thì cho xin 1 star trên GitHub để dự án dễ xin ký số miễn phí 🙏
